@@ -5,6 +5,7 @@ import Home from './Home';
 import EventDetails from './EventDetails';
 import Signup from './Signup';
 import Login from './Login';
+import Admin from './Admin';
 
 
 const AllRoutes = () => {
@@ -15,6 +16,7 @@ const AllRoutes = () => {
                 <Route path='/:event_id' element={<EventDetails />}></Route>
                 <Route path='/register' element={<Signup />}></Route>
                 <Route path='/login' element={<Login />}></Route>
+                <Route path='/admin' element={<Admin />}></Route>
             </Routes>
         </Box>
     );

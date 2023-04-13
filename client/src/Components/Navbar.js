@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Center, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, useColorMode, useColorModeValue, Image } from '@chakra-ui/react'
+import { Avatar, Box, Button, Center, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, useColorMode, useColorModeValue, Image, Text } from '@chakra-ui/react'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/Comman.css';
@@ -70,7 +70,9 @@ const Navbar = () => {
                                     </Center>
                                     <br />
                                     <Center>
-                                        {localStorage.getItem('name')}
+                                        <Text fontSize={"23px"}>
+                                            <Link to="/admin">{localStorage.getItem('name')}</Link>
+                                        </Text>
                                     </Center>
                                     <MenuDivider />
                                     <MenuItem> <Link to="/" className='Link'>Home</Link></MenuItem>

@@ -4,6 +4,7 @@ const app = express();
 const httpServer = http.createServer(app);
 const { connection } = require("./Configs/Config");
 const { userRouter } = require("./Routes/users.route");
+const { eventRouter } = require("./Routes/event.router");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
@@ -19,6 +20,7 @@ app.get("/", async (req, res) => {
 
 
 app.use('/users', userRouter);
+app.use('/events', eventRouter);
 
 httpServer.listen(PORT, async () => {
     try {
