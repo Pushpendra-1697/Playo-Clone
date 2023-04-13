@@ -2,11 +2,11 @@ import axios from "axios";
 import { backend_url } from '../../Pages/BackendURL';
 import { ADD_EVENT, EVENT_ERROR, EVENT_LOADING, EVENT_SUCCESS } from "./event.type";
 
-export const getEvents = () => async (dispatch) => {
+export const getEvents = (page = 1, eventName, q) => async (dispatch) => {
     dispatch({ type: EVENT_LOADING });
     try {
-        let res = await axios.get(`${backend_url}/events/get`);
-        dispatch({ type: EVENT_SUCCESS, payload: res.data.events });
+        let res = await axios.get(`${backend_url}/events/get?page=${page}&limit=10&name=${eventName}&q=${q}`);
+        dispatch({ type: EVENT_SUCCESS, payload: res.data });
     } catch (e) {
         dispatch({ type: EVENT_ERROR, payload: e.message });
     }

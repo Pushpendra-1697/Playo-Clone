@@ -5,6 +5,7 @@ import { addEvent, getEvents } from '../redux/Event/event.action';
 
 
 const initialState = {
+    name:'',
     desc: '',
     start: '',
     end: '',
@@ -26,16 +27,20 @@ const EventForm = () => {
             desc: '',
             start: '',
             end: '',
-            maxPlayer: ''
+            maxPlayer: '',
+            name:''
         });
     };
 
 
-    const { desc, start, end, maxPlayer } = formData;
+    const { desc, start, end, maxPlayer, name } = formData;
     return (
         <Box>
             <Heading fontSize={"22px"} textAlign={"center"}>Create a new Sports Event</Heading>
             <form onSubmit={onSubmit} style={{ textAlign: "center" }}>
+                <Box>
+                    <Input w="300px" type={"text"} placeholder="Event Name" value={name} name="name" onChange={handleChange} />
+                </Box>
                 <Box>
                     <Input w="300px" type={"text"} placeholder="Description" value={desc} name="desc" onChange={handleChange} />
                 </Box>

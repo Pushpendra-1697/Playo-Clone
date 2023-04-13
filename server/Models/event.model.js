@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema(
     {
+        name: { type: String, required: true },
         desc: { type: String, required: true },
         start: { type: Date, required: true },
         end: { type: Date, required: true },

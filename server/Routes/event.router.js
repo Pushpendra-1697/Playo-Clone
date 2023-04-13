@@ -15,11 +15,41 @@ eventRouter.post('/post', validate, async (req, res) => {
     }
 });
 
+
 eventRouter.get('/get', async (req, res) => {
-    const query = req.query;
+    let { name, q, page = 1, limit = 10 } = req.query;
+
     try {
-        const events = await EventModel.find(query);
-        res.status(200).send({ msg: 'All Events', events });
+        if (name) {
+            let events = await EventModel.find({ name });
+            res.status(200).send(events);
+        } else if (q) {
+            let events = await EventModel.find({ name: { $regex: `${q}`, $options: "six" } });
+            res.status(200).send(events);
+        } else if (page) {
+            if (Number(page) === 1) {
+                let events = await EventModel.find().skip(0).limit(+limit);
+                res.status(200).send(events);
+            } else {
+                let s = Number(page) * Number(limit) - Number(limit);
+                let events = await EventModel.find().skip(s).limit(+limit);
+                res.status(200).send(events);
+            }
+        } else {
+            let events = await EventModel.find();
+            res.status(200).send(events);
+        }
+    } catch (err) {
+        res.status(404).send({ Error: err.message });
+    }
+});
+
+
+eventRouter.get('/get/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const event = await EventModel.findOne({ _id: id });
+        res.status(200).send({ "msg": `Successfully get Event which id is ${id}`, event });
     } catch (err) {
         res.status(404).send({ Error: err.message });
     }
