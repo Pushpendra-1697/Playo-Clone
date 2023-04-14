@@ -6,7 +6,11 @@ const eventSchema = new Schema(
         desc: { type: String, required: true },
         start: { type: Date, required: true },
         end: { type: Date, required: true },
-        maxPlayer: { type: Number, required: true }
+        maxPlayer: { type: Number, required: true },
+        admin_id: {
+            type: Schema.Types.String, ref: "user", required: true
+        },
+        users: Array
     },
     { versionKey: false, timestamps: true }
 );

@@ -1,9 +1,9 @@
 const validate = (req, res, next) => {
-    const { name } = req.headers;
-    if (name === "admin") {
+    const { token } = req.headers;
+    if (token) {
         next();
     } else {
-        res.send({ "status": "NO", "msg": "You are not Admin" });
+        res.send({ "status": "NO", "msg": "Unauthorized Please Login First" });
     }
 }
 

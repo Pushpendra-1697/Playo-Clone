@@ -28,6 +28,7 @@ const Home = () => {
   };
 
   console.log(events);
+  console.log(localStorage.getItem('token'));
 
   if (localStorage.getItem('token') === null) {
     return <Navigate to="/login" />

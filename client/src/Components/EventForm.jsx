@@ -1,7 +1,7 @@
 import { Box, Heading, Input } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addEvent, getEvents } from '../redux/Event/event.action';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addEvent } from '../redux/Event/event.action';
 
 
 const initialState = {
