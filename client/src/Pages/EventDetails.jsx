@@ -16,6 +16,7 @@ const EventDetails = () => {
   const params = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [acceptedUsers, setAcceptedUsers] = useState({});
+  const [adminName, setAdminName] = useState('');
 
 
   useEffect(() => {
@@ -35,10 +36,12 @@ const EventDetails = () => {
       res = await res.json();
       if (res.msg == "Accepted") {
         alert(`${res.msg}`);
+        setAdminName(res.adminName);
         setAcceptedUsers(res.event);
         onOpen();
       } else {
-        alert(`${res.msg}`)
+        alert(`${res.msg}`);
+        setAdminName(res.adminName);
       }
     } catch (err) {
       console.log(err);
@@ -66,7 +69,10 @@ const EventDetails = () => {
           </Alert>
         </Box>}
 
-        <Text>Event Name: {data.name}</Text>
+        <Box display={"flex"} justifyContent={"space-between"}>
+          <Text>Event Name: {data.name}</Text>
+          {adminName && <Text color={"green"}>Organizer: {adminName}</Text>}
+        </Box>
         <Text w="300px">Description: {data.desc}</Text>
         <Text>Start Date: {data.start}</Text>
         <Text>End Date: {data.end}</Text>
@@ -89,7 +95,7 @@ const EventDetails = () => {
               <Box>
                 {acceptedUsers &&
                   <Box>
-                    <Heading>CreatedBy: {acceptedUsers.admin_id}</Heading>
+                    <Heading fontSize={"22px"}>Organizer: {adminName}</Heading>
                     <Text>CreatedAt: {acceptedUsers.createdAt}</Text>
                     <Text>Game Name: {acceptedUsers.name}</Text>
                     <Text mb="5%">Player Limit: {acceptedUsers.maxPlayer}</Text>
