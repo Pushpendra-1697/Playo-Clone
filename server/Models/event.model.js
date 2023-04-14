@@ -10,7 +10,12 @@ const eventSchema = new Schema(
         admin_id: {
             type: Schema.Types.String, ref: "user", required: true
         },
-        users: Array
+        users: [
+            {
+                userName: String,
+                status: { type: Boolean, default: false }
+            }
+        ]
     },
     { versionKey: false, timestamps: true }
 );

@@ -34,7 +34,7 @@ const EventDetails = () => {
         }
       });
       res = await res.json();
-      if (res.msg == "Accepted") {
+      if (res.msg == "Send Request") {
         alert(`${res.msg}`);
         setAdminName(res.adminName);
         setAcceptedUsers(res.event);
@@ -102,7 +102,7 @@ const EventDetails = () => {
                     <label>Players Details:</label>
                     {acceptedUsers.users && acceptedUsers.users.map((ele, index) =>
                       <Text key={index}>
-                        {ele}
+                        {ele.userName}
                       </Text>
                     )}
                   </Box>

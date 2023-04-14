@@ -40,6 +40,7 @@ const Navbar = () => {
                     <Link to="/"> <Image className='icon' w="40px" src="./logo.png" alt='logo' /> </Link>
 
                     <Link className='icon' to="/">Home</Link>
+                    <Link className='icon' to="/overview">Overview</Link>
                     <Link className='icon' to="/admin"><i class="fa fa-user icon">Admin</i></Link>
 
                     <Flex alignItems={'center'}>

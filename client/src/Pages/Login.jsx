@@ -49,6 +49,7 @@ const Login = () => {
         } else if (res.msg === "Login Successful") {
           localStorage.setItem('name', formData.name);
           localStorage.setItem('token', res.token);
+          localStorage.setItem('user_id', res.user_id);
           alert(`${res.msg}`);
           navigate('/');
         }

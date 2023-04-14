@@ -6,6 +6,7 @@ import EventDetails from './EventDetails';
 import Signup from './Signup';
 import Login from './Login';
 import Admin from './Admin';
+import Overview from './Overview';
 
 
 const AllRoutes = () => {
@@ -17,6 +18,7 @@ const AllRoutes = () => {
                 <Route path='/register' element={<Signup />}></Route>
                 <Route path='/login' element={<Login />}></Route>
                 <Route path='/admin' element={<Admin />}></Route>
+                <Route path='/overview' element={<Overview />}></Route>
             </Routes>
         </Box>
     );

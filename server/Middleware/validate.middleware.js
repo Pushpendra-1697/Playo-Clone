@@ -1,5 +1,5 @@
 const validate = (req, res, next) => {
-    const { token } = req.headers;
+    const { token, eventId } = req.headers;
     if (token) {
         next();
     } else {
