@@ -1,5 +1,5 @@
-import { Box, Heading, Input } from '@chakra-ui/react';
-import React, { useEffect } from 'react'
+import { Box } from '@chakra-ui/react';
+import React from 'react'
 import EventForm from '../Components/EventForm';
 import { Navigate } from 'react-router-dom';
 

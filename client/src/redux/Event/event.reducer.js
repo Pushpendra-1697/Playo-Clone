@@ -34,32 +34,6 @@ export const eventReducer = (state = initialState, { type, payload }) => {
                 events: payload
             }
         }
-        // case UPDATE_USER: {
-        //     const updatedUsers = state.users.map((ele) => {
-        //         if (ele._id === payload._id) {
-        //             return {
-        //                 ...ele,
-        //                 ...payload
-        //             }
-        //         }
-        //         return ele;
-        //     })
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         users: updatedUsers
-        //     }
-        // }
-        // case REMOVE_USER: {
-        //     let filteredUsers = state.users.filter(
-        //         (ele) => ele._id !== payload
-        //     )
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         users: filteredUsers
-        //     }
-        // }
         default: {
             return state;
         }

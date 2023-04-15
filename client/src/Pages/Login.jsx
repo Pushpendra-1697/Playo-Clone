@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineGoogle, AiOutlineTwitter, AiFillFacebook, AiFillGithub } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
-import { Box, Heading, Input, Text } from '@chakra-ui/react';
+import { Box, Heading, Input, useToast } from '@chakra-ui/react';
 
 
 
@@ -15,6 +15,7 @@ const initialState = {
 const Login = () => {
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
+  const toast = useToast();
 
 
   const handleChange = (e) => {
@@ -27,7 +28,11 @@ const Login = () => {
     e.preventDefault();
     let { name, password } = formData;
     if (name == '' || password == '') {
-      alert('Please Fill * required Field')
+      toast({
+        title: `Please Fill * required Field`,
+        status: "info",
+        isClosable: true,
+      });
       return;
     };
 
@@ -40,17 +45,28 @@ const Login = () => {
         body: JSON.stringify(formData)
       });
       res = await res.json();
-      console.log(res)
       if (res) {
         if (res.msg === "Wrong Password") {
-          alert(`${res.msg}`);
+          toast({
+            title: `${res.msg}`,
+            status: "warning",
+            isClosable: true,
+          });
         } else if (res.msg === "Wrong Username") {
-          alert(`${res.msg}`);
-        } else if (res.msg === "Login Successful") {
+          toast({
+            title: `${res.msg}`,
+            status: "info",
+            isClosable: true,
+          });
+        } else if (res.msg === "Login Successfully") {
           localStorage.setItem('name', formData.name);
           localStorage.setItem('token', res.token);
           localStorage.setItem('user_id', res.user_id);
-          alert(`${res.msg}`);
+          toast({
+            title: `${res.msg}`,
+            status: "success",
+            isClosable: true,
+          });
           navigate('/');
         }
       };

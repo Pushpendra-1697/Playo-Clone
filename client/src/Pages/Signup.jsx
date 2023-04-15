@@ -1,4 +1,4 @@
-import { Box, Heading, Input, Text } from '@chakra-ui/react';
+import { Box, Heading, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlineGoogle, AiOutlineTwitter, AiFillFacebook, AiFillGithub } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ const initialState = {
 const Signup = () => {
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -23,7 +24,11 @@ const Signup = () => {
     let { name, password } = formData;
     e.preventDefault();
     if (name == '' || password == '') {
-      alert('Please Fill * required Field')
+      toast({
+        title: `Please Fill * required Field`,
+        status: "info",
+        isClosable: true,
+      });
       return;
     };
 
@@ -38,10 +43,18 @@ const Signup = () => {
       res = await res.json();
       if (res) {
         if (res.msg === "Registered Successfully") {
-          alert(`${res.msg}`);
+          toast({
+            title: `${res.msg}`,
+            status: "success",
+            isClosable: true,
+          });
           navigate('/login');
         } else if (res.msg === "Registation failed") {
-          alert(`${res.msg}`);
+          toast({
+            title: `${res.msg}`,
+            status: "error",
+            isClosable: true,
+          });
         }
       }
 

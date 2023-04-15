@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 import { getEvents } from '../redux/Event/event.action';
-import { Alert, AlertIcon, Box, Button, Heading, Input, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Input, } from '@chakra-ui/react';
 import { BiLoaderCircle } from "react-icons/bi";
 import EventLists from '../Components/EventLists';
 

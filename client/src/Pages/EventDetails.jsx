@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { useSelector } from 'react-redux';
 import { BiLoaderCircle } from "react-icons/bi";
-import { Alert, AlertIcon, Box, Button, Container, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Container, Text, useToast } from '@chakra-ui/react';
 
 
 function getEventById(id) {
@@ -15,6 +15,7 @@ const EventDetails = () => {
   const [data, setData] = useState(null);
   const params = useParams();
   const [adminName, setAdminName] = useState('');
+  const toast = useToast();
 
 
   useEffect(() => {
@@ -33,10 +34,18 @@ const EventDetails = () => {
       });
       res = await res.json();
       if (res.msg == "Send Request") {
-        alert(`${res.msg}`);
+        toast({
+          title: `${res.msg}`,
+          status: "success",
+          isClosable: true,
+        });
         setAdminName(res.adminName);
       } else {
-        alert(`${res.msg}`);
+        toast({
+          title: `${res.msg}`,
+          status: "warning",
+          isClosable: true,
+        });
         setAdminName(res.adminName);
       }
     } catch (err) {

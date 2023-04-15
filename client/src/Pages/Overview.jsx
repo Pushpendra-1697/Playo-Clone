@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
-import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon } from '@chakra-ui/react';
+import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon, useToast } from '@chakra-ui/react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BiLoaderCircle } from "react-icons/bi";
 import { BsToggle2Off } from 'react-icons/bs';
@@ -13,6 +13,7 @@ const Overview = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
+    const toast = useToast();
 
 
     useEffect(() => {
@@ -54,7 +55,11 @@ const Overview = () => {
                 body: JSON.stringify(payload)
             });
             res = await res.json();
-            alert(res.msg);
+            toast({
+                title: `${res.msg}`,
+                status: "info",
+                isClosable: true,
+            });
             if (res.msg == "Sorry😒 Game Start Already! You Can't Accept Now") {
                 return;
             };
