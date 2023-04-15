@@ -6,9 +6,9 @@ const EventLists = ({ events }) => {
 
     return (
         <>
-            <Box textAlign={"center"} display={"grid"} gridTemplateColumns={"repeat(3,1fr)"} gap={"20px"} w="90%" m="auto">
+            <Box textAlign={"center"} display={"grid"} gridTemplateColumns={["repeat(2,1fr)", "repeat(2,1fr)", "repeat(3,1fr)"]} gap={"20px"} w="90%" m="auto">
                 {events && events.map(({ _id, start, end, maxPlayer, name }) =>
-                    <Box key={_id} boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"10px"} borderRadius={"10px"}>
+                    <Box key={_id} boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"20px 10px"} borderRadius={"10px"}>
                         <Heading fontSize={'22px'}>{name}</Heading>
                         <Text>Start Date: {start}</Text>
                         <Text>End Date: {end}</Text>

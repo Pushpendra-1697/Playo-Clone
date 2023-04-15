@@ -57,7 +57,7 @@ const Signup = () => {
   const { name, password } = formData;
   return (
     <Box style={{ textAlign: "center" }}>
-      <Heading mb="10px" style={{ textAlign: "center" }}>Register</Heading>
+      <Heading mb="10px" style={{ textAlign: "center" }} fontSize={["22px", '22px', '26px']}>Register</Heading>
       <form onSubmit={onSubmit} style={{ textAlign: "center" }}>
         <Box className='input-icons'>
           <i class="fa fa-user icon"></i>

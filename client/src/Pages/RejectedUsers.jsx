@@ -40,7 +40,7 @@ const RejectedUsers = () => {
         </Alert>
       </Box>}
 
-      <Container boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"15px"} borderRadius={"10px"} mt={["15%", "15%", "5%"]}>
+      <Container w="95%" boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"10px"} borderRadius={"10px"} mt={["15%", "15%", "5%"]}>
         <Box>
           <Text>Description: {desc}</Text>
           <Text>Oranizer: {adminName}</Text>
@@ -48,7 +48,7 @@ const RejectedUsers = () => {
           <Text>EndAt: {end}</Text>
           <Text>Player Limit: {maxPlayer}</Text>
         </Box>
-        <Heading mt="5%" fontSize={"20px"}>All Joined Player for {name}</Heading>
+        <Heading mt="5%" fontSize={"19px"}>All Joined Player for {name}:</Heading>
         <Box mb="5%">
           {users && users.map(({ _id, userName }) =>
             <Text key={_id}>{userName}</Text>

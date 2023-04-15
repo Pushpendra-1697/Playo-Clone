@@ -50,9 +50,9 @@ const Home = () => {
 
 
       {/* Filter By Event Name */}
-      <Box display={"flex"} justifyContent={"space-evenly"} m="3% 0">
-        <Input w="300px" placeholder={"Enter Event Name"} value={q} onChange={(e) => setQ(e.target.value)} />
-        <select value={eventName} onChange={(e) => setEventName(e.target.value)}>
+      <Box display={"flex"} justifyContent={"space-evenly"} m={{ base: "10% 0", sm: "10% 0", md: "3% 0", xl: "3% 0", "2xl": "3% 0" }}>
+        <Input w={["160px", "160px", "240px"]} placeholder={"Enter Event Name..."} value={q} onChange={(e) => setQ(e.target.value)} />
+        <select value={eventName} onChange={(e) => setEventName(e.target.value)} style={{ border: "1px solid black" }}>
           <option value={''}>Filter By Event Name</option>
           <option value={"Football"}>Football</option>
           <option value={"Cricket"}>Cricket</option>
@@ -64,7 +64,7 @@ const Home = () => {
       <EventLists events={events} />
 
       {/* Pagination */}
-      <Box display={"flex"} alignItems="center" justifyContent={"center"} m="1% 0" gap={"5px"}>
+      <Box display={"flex"} alignItems="center" justifyContent={"center"} m="3% 0" gap={"5px"}>
         <Button variant={"outline"} color="green" isDisabled={page <= 1} onClick={() => handlePage(-1)}>◀️PRE</Button>
         <Button variant={"outline"} color="red" isDisabled={true}>{page}</Button>
         <Button variant={"outline"} color="green" isDisabled={page >= totalPages} onClick={() => handlePage(1)}>NEXT▶️</Button>

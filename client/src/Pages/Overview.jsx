@@ -114,8 +114,8 @@ const Overview = () => {
                     {`Something went Wrong 😒`}
                 </Alert>
             </Box>}
-            <TableContainer>
-                <Table size='sm'>
+            <TableContainer mt={["15%", "15%", "0%"]}>
+                <Table size='sm' variant={"striped"}>
                     <Thead>
                         <Tr>
                             <Th>Event Name</Th>
@@ -136,13 +136,13 @@ const Overview = () => {
                                 <Td>{ele.maxPlayer}</Td>
                                 <Td>{ele.start}</Td>
                                 <Td>{ele.users && ele.users.map(({ userName, _id }) =>
-                                    <Text mb='5%' key={_id}>{userName}</Text>
+                                    <Text mb='10%' key={_id}>{userName}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ status, _id }) =>
-                                    <Text mb='5%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
+                                    <Text mb='20%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
+                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id }) =>
                                     <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
@@ -150,11 +150,11 @@ const Overview = () => {
 
 
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text key={_id}><Button onClick={() => handleAccepted(ele._id, index)} isDisabled={status == false} mb='1%'><FcAcceptDatabase fontSize={"20px"} color='green' /></Button></Text>
+                                    <Text key={_id}><Button onClick={() => handleAccepted(ele._id, index)} isDisabled={status === false} mb='1%'><FcAcceptDatabase fontSize={"20px"} color='green' /></Button></Text>
                                 )}</Td>
 
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text key={_id}><Button onClick={() => handleRejected(ele._id, index)} isDisabled={status == true} mb='1%'><RxCross1 fontSize={"20px"} color='red' /></Button></Text>
+                                    <Text key={_id}><Button onClick={() => handleRejected(ele._id, index)} isDisabled={status === true} mb='1%'><RxCross1 fontSize={"20px"} color='red' /></Button></Text>
                                 )}</Td>
                             </Tr>
                         )}

@@ -50,7 +50,7 @@ const EventDetails = () => {
   };
   return (
     <>
-      <Container boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"10px"} borderRadius={"10px"} mt={["15%", "15%", "5%"]}>
+      <Container w="95%" boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"10px"} borderRadius={"10px"} mt={["15%", "15%", "5%"]}>
         {(loading || data == null) && (
           <Box display={"flex"} justifyContent="center" alignItems={"center"}>
             {" "}
@@ -75,7 +75,7 @@ const EventDetails = () => {
         <Text mb="13px">CreatedAt: {data.createdAt}</Text>
         <Box display={"flex"} justifyContent={"space-evenly"}>
           <Link style={{ textDecoration: "none", color: "red", background: "black", padding: "8px", borderRadius: "10px" }} to='/'>Go Back</Link>
-          <Button isDisabled={data.maxPlayer <= data.users.length} onClick={() => handleAccept(data._id)}>Join Event</Button>
+          <Button bg="black" color={"goldenrod"} variant={"outline"} isDisabled={data.maxPlayer <= data.users.length} onClick={() => handleAccept(data._id)}>Join Event</Button>
         </Box>
       </Container>
 

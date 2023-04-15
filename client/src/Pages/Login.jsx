@@ -69,7 +69,7 @@ const Login = () => {
 
   return (
     <Box style={{ textAlign: 'center' }}>
-      <Heading mb="10px" style={{ textAlign: "center" }}>Login For Existing Users</Heading>
+      <Heading mb="10px" style={{ textAlign: "center" }} fontSize={["22px", '22px', '26px']}>Login For Existing Users</Heading>
       <form onSubmit={onSubmit} style={{ textAlign: "center" }}>
         <Box className='input-icons'>
           <i class="fa fa-user icon"></i>
