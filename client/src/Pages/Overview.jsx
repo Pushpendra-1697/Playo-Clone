@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon } from '@chakra-ui/react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BiLoaderCircle } from "react-icons/bi";
-import { BsToggle2Off } from 'react-icons/bs'
+import { BsToggle2Off } from 'react-icons/bs';
+import { FcAcceptDatabase } from 'react-icons/fc';
+import { RxCross1 } from 'react-icons/rx';
 
 const Overview = () => {
     const [data, setData] = useState([]);
@@ -86,6 +88,7 @@ const Overview = () => {
         }
     };
 
+
     if (localStorage.getItem('token') === null) {
         return <Navigate to="/login" />
     };
@@ -114,10 +117,12 @@ const Overview = () => {
                             <Th>Status</Th>
                             <Th>Change Status</Th>
                             <Th>Reject Request</Th>
+                            <Th>Accepted Users</Th>
+                            <Th>Rejected Users</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data && data.map((ele) =>
+                        {data && data.map((ele, index) =>
                             <Tr key={ele._id}>
                                 <Td>{ele.name}</Td>
                                 <Td>{ele.maxPlayer}</Td>
@@ -134,6 +139,8 @@ const Overview = () => {
                                 <Td>{ele.users && ele.users.map(({ _id }) =>
                                     <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' key={_id} onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
                                 )}</Td>
+                                <Td><Link to={`/overview/accept/${ele._id}/${index}`}><FcAcceptDatabase fontSize={"23px"} color='green' /></Link></Td>
+                                <Td><Link to={`/overview/reject/${ele._id}/${index}`}><RxCross1 fontSize={"23px"} color='red' /></Link></Td>
                             </Tr>
                         )}
                     </Tbody>

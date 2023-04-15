@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { useSelector } from 'react-redux';
 import { BiLoaderCircle } from "react-icons/bi";
-import { Alert, AlertIcon, Box, Button, Container, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Container, Text } from '@chakra-ui/react';
 
 
 function getEventById(id) {
@@ -14,8 +14,6 @@ const EventDetails = () => {
   const { loading, error } = useSelector((store) => store.eventManager);
   const [data, setData] = useState(null);
   const params = useParams();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [acceptedUsers, setAcceptedUsers] = useState({});
   const [adminName, setAdminName] = useState('');
 
 
@@ -37,8 +35,6 @@ const EventDetails = () => {
       if (res.msg == "Send Request") {
         alert(`${res.msg}`);
         setAdminName(res.adminName);
-        setAcceptedUsers(res.event);
-        onOpen();
       } else {
         alert(`${res.msg}`);
         setAdminName(res.adminName);
@@ -48,7 +44,6 @@ const EventDetails = () => {
     }
   };
 
-  console.log(acceptedUsers);
 
   if (data == null) {
     return (<h1 style={{ textAlign: "center", fontSize: "23px" }}>Loading....</h1>)
@@ -56,7 +51,7 @@ const EventDetails = () => {
   return (
     <>
       <Container boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" padding={"10px"} borderRadius={"10px"} mt={["15%", "15%", "5%"]}>
-        {(loading) && (
+        {(loading || data == null) && (
           <Box display={"flex"} justifyContent="center" alignItems={"center"}>
             {" "}
             <BiLoaderCircle fontSize={"34px"} />{" "}
@@ -83,43 +78,6 @@ const EventDetails = () => {
           <Button isDisabled={data.maxPlayer <= data.users.length} onClick={() => handleAccept(data._id)}>Join Event</Button>
         </Box>
       </Container>
-
-
-      <Box>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>All Joined Players</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Box>
-                {acceptedUsers &&
-                  <Box>
-                    <Heading fontSize={"22px"}>Organizer: {adminName}</Heading>
-                    <Text>CreatedAt: {acceptedUsers.createdAt}</Text>
-                    <Text>Game Name: {acceptedUsers.name}</Text>
-                    <Text mb="5%">Player Limit: {acceptedUsers.maxPlayer}</Text>
-                    <label>Players Details:</label>
-                    {acceptedUsers.users && acceptedUsers.users.map((ele, index) =>
-                      <Text key={index}>
-                        {ele.userName}
-                      </Text>
-                    )}
-                  </Box>
-                }
-
-              </Box>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
-
 
     </>
   )

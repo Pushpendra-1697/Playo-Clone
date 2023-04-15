@@ -21,8 +21,6 @@ eventRouter.post('/post', validate, async (req, res) => {
 });
 
 
-
-
 eventRouter.get('/get', async (req, res) => {
     let { name, q, page = 1, limit = 10 } = req.query;
 

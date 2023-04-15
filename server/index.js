@@ -10,6 +10,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const cors = require("cors");
 const { acceptRouter } = require("./Routes/accept.route");
+const { overviewRouter } = require("./Routes/overview.route");
 
 app.use(express.text());
 app.use(express.json());
@@ -23,6 +24,7 @@ app.get("/", async (req, res) => {
 app.use('/users', userRouter);
 app.use('/events', eventRouter);
 app.use('/', acceptRouter);
+app.use('/overview', overviewRouter);
 
 httpServer.listen(PORT, async () => {
     try {

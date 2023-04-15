@@ -7,6 +7,8 @@ import Signup from './Signup';
 import Login from './Login';
 import Admin from './Admin';
 import Overview from './Overview';
+import AcceptedUsers from './AcceptedUsers';
+import RejectedUsers from './RejectedUsers';
 
 
 const AllRoutes = () => {
@@ -19,6 +21,8 @@ const AllRoutes = () => {
                 <Route path='/login' element={<Login />}></Route>
                 <Route path='/admin' element={<Admin />}></Route>
                 <Route path='/overview' element={<Overview />}></Route>
+                <Route path='/overview/accept/:event_id/:index' element={<AcceptedUsers />}></Route>
+                <Route path='/overview/reject/:event_id/:index' element={<RejectedUsers />}></Route>
             </Routes>
         </Box>
     );

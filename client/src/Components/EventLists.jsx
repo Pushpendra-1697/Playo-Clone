@@ -3,10 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventLists = ({ events }) => {
-    console.log(events);
-    if (events.length == 0) {
-        return <Heading textAlign={"center"}>Loading....</Heading>
-    };
+
     return (
         <>
             <Box textAlign={"center"} display={"grid"} gridTemplateColumns={"repeat(3,1fr)"} gap={"20px"} w="90%" m="auto">
