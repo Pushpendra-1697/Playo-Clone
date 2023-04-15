@@ -37,10 +37,10 @@ const Navbar = () => {
         <>
             <Box bg={useColorModeValue('goldenrod', 'gray.900')} px={4} mb="5%">
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <Link to="/"> <Image className='icon' w="40px" src="./logo.png" alt='logo' /> </Link>
+                    <Link to="/"> <Image className='icon' w={"10px"} src="./logo.png" alt='logo' /> </Link>
 
-                    <Link className='icon' to="/">Home</Link>
-                    <Text display={["none", "none", "block"]}><Link className='icon' to="/overview">Overview</Link></Text>
+                    <Text display={["none", "none", "block"]}><Link className='icon' to="/">Home</Link></Text>
+                    <Text fontSize={["12px","12px","18px"]}><Link className='icon' to="/overview">Overview</Link></Text>
                     <Link className='icon' to="/admin"><i class="fa fa-user icon">Admin</i></Link>
 
                     <Flex alignItems={'center'}>
