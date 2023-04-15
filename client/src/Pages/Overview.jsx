@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon } from '@chakra-ui/react';
 import { AiFillDelete } from 'react-icons/ai';
@@ -12,6 +12,7 @@ const Overview = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -88,6 +89,13 @@ const Overview = () => {
         }
     };
 
+    const handleAccepted = (id, index) => {
+        navigate(`/overview/accept/${id}/${index}`);
+    };
+    const handleRejected = (id, index) => {
+        navigate(`/overview/reject/${id}/${index}`);
+    };
+
 
     if (localStorage.getItem('token') === null) {
         return <Navigate to="/login" />
@@ -134,13 +142,20 @@ const Overview = () => {
                                     <Text mb='5%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' key={_id} onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
+                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id }) =>
-                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' key={_id} onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
+                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
                                 )}</Td>
-                                <Td><Link to={`/overview/accept/${ele._id}/${index}`}><FcAcceptDatabase fontSize={"23px"} color='green' /></Link></Td>
-                                <Td><Link to={`/overview/reject/${ele._id}/${index}`}><RxCross1 fontSize={"23px"} color='red' /></Link></Td>
+
+
+                                <Td>{ele.users && ele.users.map(({ _id, status }) =>
+                                    <Text key={_id}><Button onClick={() => handleAccepted(ele._id, index)} isDisabled={status == false} mb='1%'><FcAcceptDatabase fontSize={"20px"} color='green' /></Button></Text>
+                                )}</Td>
+
+                                <Td>{ele.users && ele.users.map(({ _id, status }) =>
+                                    <Text key={_id}><Button onClick={() => handleRejected(ele._id, index)} isDisabled={status == true} mb='1%'><RxCross1 fontSize={"20px"} color='red' /></Button></Text>
+                                )}</Td>
                             </Tr>
                         )}
                     </Tbody>
