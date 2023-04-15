@@ -3,9 +3,9 @@
 This application for sports enthusiasts to find and join sports events near them. With this app, users can browse a list of available events, view details about each event, and join the events they are interested in. The app allows users to create their own events and join other users after token-based authentication.
 
 # Frontend Verecel Deployed Link :
-https://adobe-lilac.vercel.app/
+https://playo-delta.vercel.app
 # Backend Cyclic Deployed Link: 
-https://wandering-dove-sheath-dress.cyclic.app/
+https://ill-jade-scorpion-kit.cyclic.app
 
 # Tech Stack :
 # A) Frontend :
