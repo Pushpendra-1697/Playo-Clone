@@ -21,11 +21,17 @@ acceptRouter.patch('/changeStatus/:id', validate, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     const { event_id } = req.headers;
+    let date = new Date();
+    let eventCheck = await EventModel.findOne({ _id: event_id });
 
     try {
-        await EventModel.updateOne({ _id: event_id, "users._id": id }, { $set: { "users.$.status": status } });
-        let event = await EventModel.findOne({ _id: event_id });
-        res.status(200).send({ "msg": `Successfully update Status which id is ${id}`, event });
+        if (date <= eventCheck.start) {
+            await EventModel.updateOne({ _id: event_id, "users._id": id }, { $set: { "users.$.status": status } });
+            let event = await EventModel.findOne({ _id: event_id });
+            res.status(200).send({ msg: `Successfully update Status`, event });
+        } else {
+            res.send({ msg: `Sorry😒 Game Start Already! You Can't Accept Now` });
+        }
     } catch (err) {
         res.status(404).send({ Error: err.message });
     }
@@ -37,7 +43,7 @@ acceptRouter.delete('/rejectRequest/:id', validate, async (req, res) => {
 
     try {
         await EventModel.updateOne({ _id: event_id }, { $pull: { users: { _id: id } } });
-        res.status(200).send({ "msg": `Successfully Delete User which id is ${id}` });
+        res.status(200).send({ msg: `Successfully Delete User` });
     } catch (err) {
         res.status(404).send({ Error: err.message });
     }
@@ -64,9 +70,15 @@ acceptRouter.post('/accept', async (req, res) => {
             adminName = adminName.name;
             res.send({ msg: "You are organizer so You can't Join this event", adminName });
         } else if (event.admin_id !== user_id && event.maxPlayer > event.users.length && date > event.start) {
-            res.send({ msg: `Sorry😒 Deadline Over! You Can't join Now` });
+            let userName = await UserModel.findOne({ _id: user_id });
+            userName = userName.name;
+            event.users.push({ userName, status: false });
+            await event.save();
+            let adminName = await UserModel.findOne({ _id: event.admin_id });
+            adminName = adminName.name;
+            res.send({ msg: `Sorry😒 Deadline Over! But Your Request send successfully`, event, adminName });
         } else {
-            res.send({ msg: 'Rejected' });
+            res.send({ msg: 'Something went Wrong!😒' });
         }
     } catch (err) {
         res.status(404).send({ Error: err.message });

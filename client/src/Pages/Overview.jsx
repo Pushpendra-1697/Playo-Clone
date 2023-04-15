@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon } from '@chakra-ui/react';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
+import { AiFillDelete } from 'react-icons/ai';
 import { BiLoaderCircle } from "react-icons/bi";
+import { BsToggle2Off } from 'react-icons/bs'
 
 const Overview = () => {
     const [data, setData] = useState([]);
@@ -50,16 +51,22 @@ const Overview = () => {
                 body: JSON.stringify(payload)
             });
             res = await res.json();
-            console.log(res);
+            alert(res.msg);
+            if (res.msg == "Sorry😒 Game Start Already! You Can't Accept Now") {
+                return;
+            };
             getRequests();
         } catch (err) {
             console.log(err);
+            setIsError(true);
+            setIsLoading(false);
         }
     };
 
 
     const handleRejectRequest = async (id, eventId) => {
         try {
+            setIsLoading(true);
             let res = await fetch(`${backend_url}/rejectRequest/${id}`, {
                 method: "DELETE",
                 headers: {
@@ -69,10 +76,13 @@ const Overview = () => {
                 },
             });
             res = await res.json();
-            console.log(res);
+            setIsLoading(false);
+            setIsError(false);
             getRequests();
         } catch (err) {
             console.log(err);
+            setIsError(true);
+            setIsLoading(false);
         }
     };
 
@@ -99,6 +109,7 @@ const Overview = () => {
                         <Tr>
                             <Th>Event Name</Th>
                             <Th>Player Limit</Th>
+                            <Th>Start Time</Th>
                             <Th>User Name</Th>
                             <Th>Status</Th>
                             <Th>Change Status</Th>
@@ -110,17 +121,18 @@ const Overview = () => {
                             <Tr key={ele._id}>
                                 <Td>{ele.name}</Td>
                                 <Td>{ele.maxPlayer}</Td>
+                                <Td>{ele.start}</Td>
                                 <Td>{ele.users && ele.users.map(({ userName, _id }) =>
-                                    <Text mb='2%' key={_id}>{userName}</Text>
+                                    <Text mb='5%' key={_id}>{userName}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ status, _id }) =>
-                                    <Text mb='2%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
+                                    <Text mb='5%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='2%' key={_id} onClick={() => handleUpdateStatus(_id, !status, ele._id)}><AiFillEdit color='green' /></Button></Text>
+                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' key={_id} onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id }) =>
-                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='2%' key={_id} onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
+                                    <Text><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' key={_id} onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
                                 )}</Td>
                             </Tr>
                         )}
