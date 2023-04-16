@@ -11,7 +11,7 @@ https://ill-jade-scorpion-kit.cyclic.app
 # A) Frontend :
 React (JSX Syntax), Redux, Chakra-ui Library for Styling & Modal, axios for handling asynchrous request, react-router-dom for routing or Navigate from one page to another, Standard react components, React-hooks, chakra-icons & react-icons.
 # B) Backend :
-Node.js, Express.js, mongodb (NoSQL), mongoose for connect database to server, cors for handling the cors error, relationships between collections BSON and Bsondump.
+Node.js, Express.js, mongodb (NoSQL), mongoose for connect database to server, cors for handling the cors error, relationships between collections, BSON and Bsondump.
 
 # Some instructions to run locally :
 For Setup ---> npm install
