@@ -1,3 +1,4 @@
+//middleware for validate Unauthorized user
 const validate = (req, res, next) => {
     const { token, eventId } = req.headers;
     if (token) {

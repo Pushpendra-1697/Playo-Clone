@@ -4,6 +4,7 @@ const eventRouter = Router();
 const { EventModel } = require('../Models/event.model');
 const jwt = require('jsonwebtoken');
 
+//end points: "/events/post" for creating any new event by any logged user after creation that user become admin of that event;
 eventRouter.post('/post', validate, async (req, res) => {
     let { name, desc, start, end, maxPlayer } = req.body;
     let { token } = req.headers;
@@ -20,7 +21,7 @@ eventRouter.post('/post', validate, async (req, res) => {
     }
 });
 
-
+//end points: "/events/get" for getting all events created by differnt admin;
 eventRouter.get('/get', async (req, res) => {
     let { name, q, page = 1, limit = 10 } = req.query;
 
@@ -49,7 +50,7 @@ eventRouter.get('/get', async (req, res) => {
     }
 });
 
-
+//end points: "/events/get/:id" for getting any particular event by id;
 eventRouter.get('/get/:id', async (req, res) => {
     const { id } = req.params;
     try {

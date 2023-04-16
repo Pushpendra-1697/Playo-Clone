@@ -51,7 +51,7 @@ const Home = () => {
 
       {/* Filter By Event Name */}
       <Box display={"flex"} justifyContent={"space-evenly"} m={{ base: "10% 0", sm: "10% 0", md: "3% 0", xl: "3% 0", "2xl": "3% 0" }}>
-        <Input w={["160px", "160px", "240px"]} placeholder={"Enter Event Name..."} value={q} onChange={(e) => setQ(e.target.value)} />
+        <Input color={'green'} w={["160px", "160px", "240px"]} placeholder={"Enter Event Name..."} value={q} onChange={(e) => setQ(e.target.value)} />
         <select value={eventName} onChange={(e) => setEventName(e.target.value)} style={{ border: "1px solid black" }}>
           <option value={''}>Filter By Event Name</option>
           <option value={"Football"}>Football</option>

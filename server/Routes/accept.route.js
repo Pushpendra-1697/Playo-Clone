@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/users.model');
 const { validate } = require('../Middleware/validate.middleware');
 
-
+//end point: "/getAllRequests" for getting all requests of users for different events;
 acceptRouter.get('/getAllRequests', validate, async (req, res) => {
     let query = req.query;
     try {
@@ -16,7 +16,7 @@ acceptRouter.get('/getAllRequests', validate, async (req, res) => {
     }
 });
 
-
+//end point: "/changeStatus/:id" for updating the requests status of users of any particular event by id;
 acceptRouter.patch('/changeStatus/:id', validate, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -37,18 +37,22 @@ acceptRouter.patch('/changeStatus/:id', validate, async (req, res) => {
     }
 });
 
-acceptRouter.delete('/rejectRequest/:id', validate, async (req, res) => {
+//end points: "/rejectRequest/:id" for reject request of users of any particular event by id; 
+acceptRouter.patch('/rejectRequest/:id', validate, async (req, res) => {
     const { id } = req.params;
+    const { reject } = req.body;
     const { event_id } = req.headers;
 
     try {
-        await EventModel.updateOne({ _id: event_id }, { $pull: { users: { _id: id } } });
-        res.status(200).send({ msg: `Successfully Delete User` });
+        await EventModel.updateOne({ _id: event_id, "users._id": id }, { $set: { "users.$.reject": reject } });
+        let event = await EventModel.findOne({ _id: event_id });
+        res.status(200).send({ msg: `Successfully update Status`, event });
     } catch (err) {
         res.status(404).send({ Error: err.message });
     }
 });
 
+//end points: "/accept" for checking users can make the request or not for any particular event; 
 acceptRouter.post('/accept', async (req, res) => {
     let { token, event_id } = req.headers;
     token = jwt.decode(token, process.env.secret_key);

@@ -48,7 +48,7 @@ const AcceptedUsers = () => {
           <Text>EndAt: {end}</Text>
           <Text>Player Limit: {maxPlayer}</Text>
         </Box>
-        <Heading mt="5%" fontSize={"19px"}>All Joined Player for {name}:</Heading>
+        <Heading mt="5%" fontSize={"19px"}>All Joined/Accepted Player for {name}: {`[${users.length}]`}</Heading>
         <Box mb="5%">
           {users && users.map(({ _id, userName }) =>
             <Text key={_id}>{userName}</Text>

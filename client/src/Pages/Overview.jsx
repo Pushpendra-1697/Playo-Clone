@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import { backend_url } from './BackendURL';
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text, Button, Box, Alert, AlertIcon, useToast } from '@chakra-ui/react';
-import { AiFillDelete } from 'react-icons/ai';
 import { BiLoaderCircle } from "react-icons/bi";
 import { BsToggle2Off } from 'react-icons/bs';
 import { FcAcceptDatabase } from 'react-icons/fc';
-import { RxCross1 } from 'react-icons/rx';
+import { RxCross1, RxCrossCircled } from 'react-icons/rx';
 
 const Overview = () => {
     const [data, setData] = useState([]);
@@ -14,7 +13,6 @@ const Overview = () => {
     const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
     const toast = useToast();
-
 
     useEffect(() => {
         getRequests();
@@ -35,12 +33,10 @@ const Overview = () => {
             setIsLoading(false);
             setIsError(false);
         } catch (err) {
-            console.log(err);
             setIsError(true);
             setIsLoading(false);
         }
     };
-
 
     const handleUpdateStatus = async (id, change, eventId) => {
         let payload = { status: change };
@@ -65,30 +61,33 @@ const Overview = () => {
             };
             getRequests();
         } catch (err) {
-            console.log(err);
             setIsError(true);
             setIsLoading(false);
         }
     };
 
 
-    const handleRejectRequest = async (id, eventId) => {
+    const handleRejectRequest = async (id, change, eventId) => {
+        let payload = { reject: change };
         try {
             setIsLoading(true);
             let res = await fetch(`${backend_url}/rejectRequest/${id}`, {
-                method: "DELETE",
+                method: "PATCH",
                 headers: {
                     "Content-Type": 'application/json',
                     "token": localStorage.getItem('token'),
                     "event_id": eventId
                 },
+                body: JSON.stringify(payload)
             });
             res = await res.json();
-            setIsLoading(false);
-            setIsError(false);
+            toast({
+                title: `${res.msg}`,
+                status: "info",
+                isClosable: true,
+            });
             getRequests();
         } catch (err) {
-            console.log(err);
             setIsError(true);
             setIsLoading(false);
         }
@@ -143,14 +142,14 @@ const Overview = () => {
                                 <Td>{ele.users && ele.users.map(({ userName, _id }) =>
                                     <Text mb='10%' key={_id}>{userName}</Text>
                                 )}</Td>
-                                <Td>{ele.users && ele.users.map(({ status, _id }) =>
-                                    <Text mb='20%' key={_id}>{status ? <Text color={"green"}>Accepted</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
+                                <Td>{ele.users && ele.users.map(({ status, reject, _id }) =>
+                                    <Text mb='20%' key={_id}>{status || reject ? <Text color={"green"}>{reject ? <Text color={'red'}>Rejected</Text> : <Text color={'green'}>Accepted</Text>}</Text> : <Text color={"goldenrod"}>Pending</Text>}</Text>
                                 )}</Td>
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
                                     <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} onClick={() => handleUpdateStatus(_id, !status, ele._id)}><BsToggle2Off color='green' /></Button></Text>
                                 )}</Td>
-                                <Td>{ele.users && ele.users.map(({ _id }) =>
-                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleRejectRequest(_id, ele._id)}><AiFillDelete color='red' /></Button></Text>
+                                <Td>{ele.users && ele.users.map(({ _id, reject }) =>
+                                    <Text key={_id}><Button isDisabled={localStorage.getItem('user_id') !== ele.admin_id} mb='1%' onClick={() => handleRejectRequest(_id, !reject, ele._id)}><RxCrossCircled color='red' /></Button></Text>
                                 )}</Td>
 
 
@@ -159,7 +158,7 @@ const Overview = () => {
                                 )}</Td>
 
                                 <Td>{ele.users && ele.users.map(({ _id, status }) =>
-                                    <Text key={_id}><Button onClick={() => handleRejected(ele._id, index)} isDisabled={status === true} mb='1%'><RxCross1 fontSize={"20px"} color='red' /></Button></Text>
+                                    <Text key={_id}><Button onClick={() => handleRejected(ele._id, index)} mb='1%'><RxCross1 fontSize={"20px"} color='red' /></Button></Text>
                                 )}</Td>
                             </Tr>
                         )}

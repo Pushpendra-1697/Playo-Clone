@@ -10,8 +10,6 @@ const initialState = {
   name: '',
   password: ''
 };
-
-
 const Login = () => {
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
@@ -55,7 +53,7 @@ const Login = () => {
         } else if (res.msg === "Wrong Username") {
           toast({
             title: `${res.msg}`,
-            status: "info",
+            status: "warning",
             isClosable: true,
           });
         } else if (res.msg === "Login Successfully") {
@@ -80,7 +78,6 @@ const Login = () => {
     }
   };
 
-
   const { name, password } = formData;
 
   return (
@@ -95,12 +92,9 @@ const Login = () => {
           <i class="fa fa-key icon"></i>
           <Input className='input-field' w="300px" type={"password"} value={password} name="password" placeholder='Password' onChange={handleChange} />
         </Box>
-
         <Input w="300px" style={{ backgroundColor: "blue", color: "white", border: "none", borderRadius: "10px", padding: "10px" }} type={"submit"} />
-
       </form>
       <p style={{ marginTop: "14px" }}>or continue with these social profile</p>
-
       <Box m="0px 0 8px 0" display={"flex"} justifyContent="center" alignItems={"center"} gap="5px">
         <a className='social-icon' target={"_blank"} href="https://github.com/topics/bug-tracker"><AiOutlineGoogle /></a>
         <a className='social-icon' target={"_blank"} href="https://github.com/topics/bug-tracker"><AiFillFacebook /> </a>
